@@ -10,12 +10,18 @@ import { Heroe } from '../../interfaces/heroe.interface';
 export class HeroesComponent implements OnInit {
 
   heroes: any;
+  loading = true;
 
   constructor(private _heroesService: HeroesService) {
     this._heroesService.getHeroes()
       .subscribe( data => {
-        console.log(data);
+        // console.log(data);
         this.heroes = data;
+        this.loading = false;
+       /*  setTimeout( () => {
+          this.loading = false;
+          this.heroes = data;
+        }, 2000); */
       });
   }
 
