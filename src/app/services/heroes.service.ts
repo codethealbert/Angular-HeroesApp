@@ -47,4 +47,9 @@ export class HeroesService {
     return this.http.get(url)
               .pipe(map( resp => resp));
   }
+
+  getHeroes () {
+    return this.http.get(this.heroesURL)
+              .pipe(map( resp => resp));
+  }
 }
