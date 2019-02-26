@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Heroe } from '../../interfaces/heroe.interface';
 import { HeroesService } from '../../services/heroes.service';
+import { format } from 'path';
 
 
 
@@ -28,6 +29,11 @@ export class HeroeComponent implements OnInit {
       .subscribe( parametros => {
         console.log(parametros);
         this.id = parametros['id'];
+
+        if (this.id !== 'nuevo') {
+          this._heroesService.getHeroe(this.id)
+            .subscribe( (data: Heroe) => this.heroe = data);
+        }
       });
   }
 
@@ -55,6 +61,13 @@ export class HeroeComponent implements OnInit {
       error => console.log(error));
     }
 
+  }
+
+  agregarNuevo(forma: NgForm) {
+    this.router.navigate(['/heroe', 'nuevo']);
+    forma.reset({
+      casa: 'Marvel'
+    });
   }
 
 }

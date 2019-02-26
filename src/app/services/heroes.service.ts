@@ -41,4 +41,10 @@ export class HeroesService {
         return resp;
       }));
   }
+
+  getHeroe ( key$: string) {
+    const url = `${this.heroeURL}/${key$}.json`;
+    return this.http.get(url)
+              .pipe(map( resp => resp));
+  }
 }
