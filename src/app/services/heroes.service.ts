@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 export class HeroesService {
 
   heroesURL = 'https://heroesapp-e703e.firebaseio.com/heroes.json';
+  heroeURL = 'https://heroesapp-e703e.firebaseio.com/heroes/';
   constructor(private http: HttpClient) { }
 
   nuevoHeroe(heroe: Heroe) {
@@ -20,6 +21,21 @@ export class HeroesService {
     });
 
     return this.http.post( this.heroesURL, body, { headers })
+      .pipe(map( resp => {
+        console.log(resp);
+        return resp;
+      }));
+  }
+
+  actualizarHeroe(heroe: Heroe, key$: string) {
+    const body = JSON.stringify(heroe);
+    const headers = new HttpHeaders({
+      'Content-Type': 'applecation/json'
+    });
+
+    const url = `${ this.heroeURL }/${ key$ }.json`;
+
+    return this.http.put( url, body, { headers })
       .pipe(map( resp => {
         console.log(resp);
         return resp;
